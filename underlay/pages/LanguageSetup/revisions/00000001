@@ -1,0 +1,84 @@
+## Please edit system and help pages ONLY in the master wiki!
+## For more information, please see MoinMoin:MoinDev/Translation.
+##master-page:Unknown-Page
+##master-date:Unknown-Date
+#acl -All:write Default
+#format wiki
+#language en
+
+## Translator notice: DO NOT TRANSLATE THIS PAGE!
+
+= Welcome =
+
+||<tablewidth="99%" (> (./) /!\ <!> ||<: width="76%">If you have just installed or upgraded your wiki you are not in the wrong place.<<BR>>Just read the informations given below.||<)> <!> /!\ (./) ||
+
+
+== System and Help Page Package installation ==
+!MoinMoin comes with no system and help pages installed by default (the page you read right now is the only page after a fresh installation).
+
+=== Becoming superuser ===
+For installation of the language packages, it is required that you are superuser:
+ 1. If you do not already have an account, create one (see hints on the login page).
+ 1. If the wiki is not already configured to recognize you as a superuser, change wiki config appropriately:
+ {{{
+    superuser = [u"YourLoginName", ]
+}}}
+ See HelpOnConfiguration for more details.
+ 1. Restart the wiki to make it load the changed configuration.
+ 1. Login in (with the login name you configured as superuser).
+
+=== Installing page packages ===
+You can <<Action(language_setup, install help and system page packages)>> for any language you want to support for your wiki users.
+
+You should see an '''install''' link for each page package - click on it for each of the packages you wish to install.
+
+/!\ Make sure you at least install the essential system page package for the `language_default` you might have configured (the default for this setting is `en`, i.e English).
+
+(!) Depending on the amount of system and help pages you want to have, you can install a rather minimal set ("essential") or also install rather "optional" pages if you like it more complete.
+
+
+== FrontPage configuration ==
+
+For the root URL of your wiki, moin will use a special page (called the "front page"). Users can be given a translated front page in their preferred language, or they can be given any other single page you specify.
+
+Note: you '''must''' set `page_front_page` to get rid of this page being the front page:
+
+{{{
+    # Choose this, if most wiki content is in a single language.
+    # If English is not your wiki's main language, choose something in YOUR wiki language
+    page_front_page = u"MyStartingPage"
+}}}
+
+OR
+
+{{{
+    # Choose this, if wiki content is maintained in multiple languages.
+    # In the navigation, "FrontPage" will get automatically translated for installed languages.
+    page_front_page = u"FrontPage"
+}}}
+
+If you go the ''single language'' way, you can copy some of the content of FrontPage (or one of its translations) to the page you choose as your `page_front_page`.
+
+If you go the ''multiple language'' way, don't forget to edit all translations of !FrontPage.
+
+/!\ If you go the ''multiple languages'' way, people reaching your wiki will be directed to the front page corresponding to their browser language setting. If you did not prepare that page, they will see the default page for their language and have the impression the wiki is empty or badly maintained.
+
+
+== User interface text translations ==
+
+!MoinMoin tries to adapt the user interface to the language the user prefers.
+
+If the user puts a specific language preference into his user preferences, that language will be used for the user interface. But the user doesn't even need to do that if he already has configured his browser with his language preferences.
+
+If there is no specific user preferences language setting, moin tries to adapt to the languages the user configured in his browser. So if the browser tells moin that its preference is Canadian English, then German, then English in general and moin has German and English available (but not a specific configuration for Canadian English), then the user will get a German user interface.
+
+If there is no common language in the user's browser configuration and in moin or if you have set {{{language_ignore_browser = True}}}, moin will fall back to using what is configured as {{{language_default}}}. This is also the case if the user's browser does not specify any language.
+
+The usual case when you want to set {{{language_ignore_browser = True}}} is when running a local wiki with no international audience and you maintain the wiki in only one (your local) language. Don't forget to specify your one-and-only language using language_default when doing this.
+
+
+== System and help page translations and the navigation bar ==
+
+The !MoinMoin distribution archive contains the system pages (like `RecentChanges`) in different languages, selecting the correct language in the same way as for the user interface.
+
+For example, if the navi_bar contains a link to `RecentChanges`, moin will first look for a translation of `RecentChanges` into the user's language. So if the user's language is German (de), the translation is `AktuelleÄnderungen`. Moin will use `AktuelleÄnderungen` in the navi_bar display if that page actually exists; otherwise, it will fall back to using `RecentChanges`.
