@@ -220,7 +220,7 @@ class SubirHoja(ActionBase):
             l.pop(0)
             l.pop(0)
             bloques = []
-            cadena = ''
+            cadena = u''
             i = 0
             while l:
                 lin = l.pop(0)
@@ -230,7 +230,14 @@ class SubirHoja(ActionBase):
                     i += 1
                     lin = l.pop(0)
                     while lin[:3] != '///':
-                        cadena += lin
+                       try:
+                            cadena+=lin.decode('utf-8')
+                        except:
+                            for letra in lin:
+                                try:
+                                    cadena += letra.decode('utf-8')
+                                except:
+                                    pass
                         lin = l.pop(0)
                         i += 1
                     cadena += u'}}}\n'
@@ -240,8 +247,14 @@ class SubirHoja(ActionBase):
                         lin = l.pop(0)
                         i+=1
                 else:
-                    cadena+=lin.decode('utf-8')
-
+                    try:
+                        cadena+=lin.decode('utf-8')
+                    except:
+                        for letra in lin:
+                            try:
+                                cadena += letra.decode('utf-8')
+                            except:
+                                pass
             bloques2=[]
             p = HTML2MoinMoin()
             for l in bloques:
